@@ -307,6 +307,10 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: var(--space-5);
 }
+.portfolio-logo { display: block; width: 150px; height: auto; margin-bottom: var(--space-3); }
+@media (prefers-color-scheme: dark) {
+  .portfolio-logo { filter: invert(1); }  /* solid black art, so flip it on dark paper */
+}
 .portfolio p { margin: 0; line-height: 1.6; }
 .portfolio-label { font-weight: 700; text-transform: uppercase; font-size: 0.95rem; }
 .portfolio-link { display: inline-block; margin-top: var(--space-1); }
