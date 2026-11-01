@@ -1,0 +1,17 @@
+<footer class="site-footer">
+  <div class="footer-row">
+    <p class="footer-heading">An Indie Publication</p>
+    <p class="footer-lede">{{ with .Site.Params.description }}{{ . }}{{ else }}I'm documenting my career pivot into illustration and cartooning.{{ end }}</p>
+  </div>
+  <div class="footer-row">
+    <p class="footer-heading">Follow Me</p>
+    <nav class="social-icons social-icons--round" aria-label="Follow">
+      {{ partial "social-icons.html" . }}
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <a class="site-title" href="{{ "/" | relURL }}">{{ partial "wordmark.html" . }}</a>
+    <p>Created with <a href="https://micro.blog">Micro.blog</a></p>
+    <p class="site-copyright">© {{ now.Year }} <strong>Kris Black Studio, LLC</strong>. All rights reserved.</p>
+  </div>
+</footer>

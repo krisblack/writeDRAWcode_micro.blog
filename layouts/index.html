@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{ partial "head.html" . }}
+</head>
+<body>
+{{ partial "header.html" . }}
+<main id="content" class="site-main">
+  {{ if eq .Paginator.PageNumber 1 }}
+  <section class="intro" aria-label="About this site">
+    <div class="intro-text">
+      <p class="intro-kicker">An Indie Publication</p>
+      <p class="intro-byline">by Kris Black — Visual Designer &amp; Cartoonist</p>
+      <h1 class="intro-title">Documenting My Career Pivot<br> Into Illustration &amp; Cartooning</h1>
+    </div>
+    {{ with .Site.Params.avatar }}<img class="intro-avatar" src="{{ . }}" alt="Cartoon self-portrait of Kris Black" width="125" height="125">{{ end }}
+  </section>
+  {{ end }}
+
+  <section class="post-list" aria-labelledby="blog-label">
+    <h2 id="blog-label" class="section-label">Blog</h2>
+    {{ range .Paginator.Pages }}
+      {{ partial "post-item.html" . }}
+    {{ end }}
+    {{ partial "pagination.html" . }}
+  </section>
+
+  {{ if eq .Paginator.PageNumber 1 }}
+  <section class="portfolios" aria-labelledby="portfolios-title">
+    <h2 id="portfolios-title" class="section-title">My Portfolio Websites</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio">
+        <p class="portfolio-label">Illustration</p>
+        <p>I create comics, children’s books, and collectible items I sell as stickers, trading cards, and other merchandise.</p>
+        <a class="portfolio-link" href="https://krisblack.com">Visit KrisBlack.com</a>
+      </div>
+      <div class="portfolio">
+        <p class="portfolio-label">UX/UI &amp; Design</p>
+        <p>View my portfolio of work as a visual designer, and let me know if you're interested in collaborating.</p>
+        <a class="portfolio-link" href="https://kris.black">Visit Kris.Black</a>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+</main>
+{{ partial "footer.html" . }}
+</body>
+</html>

@@ -1,0 +1,20 @@
+{{ if .Title }}
+{{ $thumb := "" }}
+{{ with findRE `<img[^>]+src="[^"]+"` .Content 1 }}{{ $thumb = replaceRE `.*src="([^"]+)".*` "$1" (index . 0) }}{{ end }}
+<article class="h-entry post-item{{ if $thumb }} has-thumb{{ end }}">
+  <div class="post-item-body">
+    {{ partial "post-meta.html" . }}
+    <h2 class="post-title p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <p class="post-excerpt p-summary">{{ .Summary | plainify | htmlUnescape | truncate 240 }}</p>
+    <a class="read-more" href="{{ .Permalink }}">Read more →</a>
+  </div>
+  {{ with $thumb }}
+  <a class="post-thumb" href="{{ $.Permalink }}" tabindex="-1" aria-hidden="true"><img src="{{ . }}" alt="" loading="lazy"></a>
+  {{ end }}
+</article>
+{{ else }}
+<article class="h-entry post-item is-note">
+  <div class="e-content">{{ .Content }}</div>
+  {{ partial "post-meta.html" . }}
+</article>
+{{ end }}

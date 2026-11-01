@@ -1,0 +1,6 @@
+{{ if gt .Paginator.TotalPages 1 }}
+<nav class="pagination" aria-label="Pages">
+  {{ if .Paginator.HasPrev }}<a rel="prev" href="{{ .Paginator.Prev.URL }}">← Newer Articles</a>{{ end }}
+  {{ if .Paginator.HasNext }}<a rel="next" href="{{ .Paginator.Next.URL }}">More Blog Articles →</a>{{ end }}
+</nav>
+{{ end }}
