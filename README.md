@@ -8,10 +8,12 @@ Recreates the writedrawcode.com design: device font, warm gray paper (#E7E4E4), 
 theme.json
 layouts/
   index.html            home: intro + avatar, post list, portfolio links
+  index.archivehtml.html  /archive/ (Blog): titled posts only, no notes
   _default/list.html    archives, categories
   _default/single.html  post or page (posts add author box + prev/next)
   partials/
     head.html  header.html  footer.html
+    site-header.html    header markup; takes the nav item to mark as current
     wordmark.html       logo image (header + footer)
     social-icons.html   RSS, Bluesky, Mastodon, Instagram, Contact (header + footer)
     post-item.html      list entry: titled post with thumbnail, or untitled note

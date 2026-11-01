@@ -16,8 +16,8 @@
 
   {{ if $isPost }}
   {{ partial "author-box.html" . }}
-  {{/* Posts live in year folders, so step through all dated posts, not the section */}}
-  {{ $posts := where site.RegularPages "Section" "!=" "" }}
+  {{/* Step through all posts site-wide, not just the current section */}}
+  {{ $posts := where site.RegularPages "Type" "post" }}
   {{ $newer := $posts.Next . }}
   {{ $older := $posts.Prev . }}
   {{ if or $newer $older }}
