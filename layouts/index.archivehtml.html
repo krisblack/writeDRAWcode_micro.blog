@@ -7,8 +7,8 @@
 {{/* This is an extra output of the home page, so .RelPermalink is "/"; mark Blog instead */}}
 {{ partial "site-header.html" (dict "page" . "current" ("/archive/" | relURL)) }}
 <main id="content" class="site-main">
-  {{/* micro.blog renders /archive/ from this template. Titled posts only; notes stay on the home page */}}
-  {{ $posts := where (where .Site.RegularPages "Type" "post") "Title" "!=" "" }}
+  {{/* micro.blog renders /archive/ from this template. All titled posts; untitled notes are left out */}}
+  {{ $posts := partial "blog-posts.html" . }}
   <section class="post-list h-feed" aria-labelledby="blog-label">
     <h1 id="blog-label" class="section-label">Blog</h1>
     {{ range $posts }}

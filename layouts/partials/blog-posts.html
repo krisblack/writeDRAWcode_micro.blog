@@ -1,0 +1,2 @@
+{{/* Returns titled posts, newest first. Untitled notes (including Now posts) are left out */}}
+{{ return (where (where site.RegularPages "Type" "post") "Title" "!=" "").ByDate.Reverse }}

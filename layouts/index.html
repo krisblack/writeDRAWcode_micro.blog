@@ -6,10 +6,7 @@
 <body>
 {{ partial "header.html" . }}
 <main id="content" class="site-main">
-  {{/* Now posts get their own section, so keep them out of the main list */}}
   {{ $now := partial "now-posts.html" . }}
-  {{ $pager := .Paginate (where site.RegularPages "Type" "post" | complement $now) }}
-  {{ if eq $pager.PageNumber 1 }}
   <section class="intro" aria-label="About this site">
     <div class="intro-text">
       <p class="intro-kicker">An Indie Publication</p>
@@ -18,17 +15,18 @@
     </div>
     {{ with .Site.Params.avatar }}<img class="intro-avatar" src="{{ . }}" alt="Cartoon self-portrait of Kris Black" width="125" height="125">{{ end }}
   </section>
-  {{ end }}
 
   <section class="post-list" aria-labelledby="blog-label">
     <h2 id="blog-label" class="section-label">Blog</h2>
-    {{ range $pager.Pages }}
+    {{/* Five newest titled posts; the rest live on the Blog page */}}
+    {{ range first 5 (partial "blog-posts.html" .) }}
       {{ partial "post-item.html" . }}
     {{ end }}
-    {{ partial "pagination.html" . }}
+    <nav class="pagination" aria-label="More posts">
+      <a rel="next" href="{{ "/archive/" | relURL }}">More Blog Articles →</a>
+    </nav>
   </section>
 
-  {{ if eq $pager.PageNumber 1 }}
   {{ with first 1 $now }}
   <section class="now-latest" aria-labelledby="now-latest-title">
     <h2 id="now-latest-title" class="now-latest-title">What I’m Doing Now</h2>
@@ -54,7 +52,6 @@
       </div>
     </div>
   </section>
-  {{ end }}
 </main>
 {{ partial "footer.html" . }}
 </body>
