@@ -1,0 +1,18 @@
+{{- /* JSON Feed 1.1 at /feed.json for the self-hosted site. Named for its own
+     output format so it never replaces micro.blog's feed.json */ -}}
+{{- $items := slice -}}
+{{- range first 20 ((where site.RegularPages "Type" "post").ByDate.Reverse) -}}
+  {{- $item := dict "id" .Permalink "url" .Permalink "content_html" .Content "date_published" (.Date.Format "2006-01-02T15:04:05Z07:00") -}}
+  {{- with .Title }}{{ $item = merge $item (dict "title" .) }}{{ end -}}
+  {{- with .Params.categories }}{{ $item = merge $item (dict "tags" .) }}{{ end -}}
+  {{- $items = $items | append $item -}}
+{{- end -}}
+{{- dict
+  "version" "https://jsonfeed.org/version/1.1"
+  "title" site.Title
+  "description" site.Params.description
+  "home_page_url" ("/" | absURL)
+  "feed_url" ("feed.json" | absURL)
+  "authors" (slice (dict "name" "Kris Black" "url" ("/about/" | absURL)))
+  "items" $items
+  | jsonify (dict "indent" "  ") -}}
