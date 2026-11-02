@@ -6,7 +6,10 @@
 <body>
 {{ partial "header.html" . }}
 <main id="content" class="site-main">
-  {{ if eq .Paginator.PageNumber 1 }}
+  {{/* Now posts get their own section, so keep them out of the main list */}}
+  {{ $now := partial "now-posts.html" . }}
+  {{ $pager := .Paginate (where site.RegularPages "Type" "post" | complement $now) }}
+  {{ if eq $pager.PageNumber 1 }}
   <section class="intro" aria-label="About this site">
     <div class="intro-text">
       <p class="intro-kicker">An Indie Publication</p>
@@ -19,13 +22,21 @@
 
   <section class="post-list" aria-labelledby="blog-label">
     <h2 id="blog-label" class="section-label">Blog</h2>
-    {{ range .Paginator.Pages }}
+    {{ range $pager.Pages }}
       {{ partial "post-item.html" . }}
     {{ end }}
     {{ partial "pagination.html" . }}
   </section>
 
-  {{ if eq .Paginator.PageNumber 1 }}
+  {{ if eq $pager.PageNumber 1 }}
+  {{ with first 1 $now }}
+  <section class="now-latest" aria-labelledby="now-latest-title">
+    <h2 id="now-latest-title" class="now-latest-title">What I’m Doing Now</h2>
+    {{ range . }}{{ partial "post-item.html" . }}{{ end }}
+    <a class="now-latest-more" href="{{ "/now/" | relURL }}">Before Now →</a>
+  </section>
+  {{ end }}
+
   <section class="portfolios" aria-labelledby="portfolios-title">
     <h2 id="portfolios-title" class="section-title">My Portfolio Websites</h2>
     <div class="portfolio-grid">

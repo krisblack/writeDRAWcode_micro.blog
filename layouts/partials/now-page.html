@@ -1,0 +1,20 @@
+<section class="now-page">
+  <header class="now-header">
+    <h1 class="now-title">{{ with .Title }}{{ . }}{{ else }}Now{{ end }}</h1>
+    <div class="now-panel">
+      <div class="now-panel-lede">
+        {{ with .Content }}{{ . }}{{ else }}
+        <p><strong>Short, Quick Daily Notes</strong><br>
+        Read full posts on <a href="{{ "/archive/" | relURL }}">my blog</a>.</p>
+        {{ end }}
+      </div>
+      <p class="now-panel-foot">What is a <a href="https://nownownow.com/about">now page</a>?</p>
+    </div>
+  </header>
+
+  <div class="post-list h-feed">
+    {{ range partial "now-posts.html" . }}
+      {{ partial "post-item.html" . }}
+    {{ end }}
+  </div>
+</section>

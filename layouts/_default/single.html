@@ -6,8 +6,11 @@
 <body>
 {{ partial "header.html" . }}
 <main id="content" class="site-main">
-  {{/* Pages in the nav menu (About, Colophon) skip post-only extras */}}
-  {{ $isPost := not .Params.menu }}
+  {{/* Pages (About, Colophon, Now) skip post-only extras */}}
+  {{ $isPost := eq .Type "post" }}
+  {{ if eq .RelPermalink ("/now/" | relURL) }}
+  {{ partial "now-page.html" . }}
+  {{ else }}
   <article class="h-entry post{{ if not .Title }} is-note{{ end }}">
     {{ if .Title }}<h1 class="post-title p-name">{{ .Title }}</h1>{{ end }}
     {{ if $isPost }}{{ partial "post-meta.html" . }}{{ end }}
@@ -25,6 +28,7 @@
     {{ with $newer }}<a class="post-nav-prev" rel="prev" href="{{ .Permalink }}"><span class="post-nav-arrow" aria-hidden="true">‹</span><span>{{ with .Title }}{{ . }}{{ else }}Newer post{{ end }}</span></a>{{ end }}
     {{ with $older }}<a class="post-nav-next" rel="next" href="{{ .Permalink }}"><span>{{ with .Title }}{{ . }}{{ else }}Older post{{ end }}</span><span class="post-nav-arrow" aria-hidden="true">›</span></a>{{ end }}
   </nav>
+  {{ end }}
   {{ end }}
   {{ end }}
 </main>

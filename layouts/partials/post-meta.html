@@ -3,7 +3,10 @@
     <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 1h1.5v2h5V1H12v2h2v11H2V3h2V1Zm-.5 5v6.5h9V6h-9Z"/></svg>
     <a class="u-url" href="{{ .Permalink }}"><time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "Monday, January 2, 2006" }}</time></a>
   </span>
-  {{ with .Params.categories }}
+  {{/* "Now" marks now posts; it would repeat on every one, so leave it out */}}
+  {{ $cats := slice }}
+  {{ range .Params.categories }}{{ if ne (lower .) "now" }}{{ $cats = $cats | append . }}{{ end }}{{ end }}
+  {{ with $cats }}
   <span class="meta-item">
     <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M1 3h5l1.5 1.5H15V13H1V3Zm1.5 3v5.5h11V6h-11Z"/></svg>
     {{ range $i, $c := . }}{{ if $i }}, {{ end }}<a class="p-category" href="{{ "categories/" | relURL }}{{ $c | urlize }}/">{{ $c }}</a>{{ end }}

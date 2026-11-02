@@ -316,6 +316,50 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 .pagination a { color: var(--ink); }
 .pagination a[rel="next"] { margin-left: auto; }
 
+/* Now: home section */
+.now-latest { display: flex; flex-direction: column; gap: var(--space-3); }
+.now-latest-title {
+  margin: 0 0 var(--space-2);
+  font-size: 3.1rem;       /* 50px, as on Squarespace */
+  line-height: 1;
+  color: var(--text);
+}
+.now-latest-more { align-self: flex-end; font-size: 1rem; }
+
+/* Now: page */
+.now-page { display: flex; flex-direction: column; gap: var(--space-6); }
+.now-header { display: flex; flex-direction: column; }
+.now-title {
+  margin: 0;
+  font-size: clamp(6rem, 26vw, 11.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.now-panel {
+  align-self: flex-end;
+  width: min(100%, 28rem);
+  margin-top: -0.75rem;
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+.now-panel-lede {
+  padding: 1.75rem 2rem;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  border-radius: 3px 3px 0 0;
+}
+.now-panel-lede p { margin: 0; }
+.now-panel-lede a { color: inherit; text-decoration: underline; }
+.now-panel-foot {
+  margin: 0;
+  padding: 0.85rem 2rem;
+  background: var(--card);
+  border-radius: 0 0 3px 3px;
+  text-align: right;
+}
+.now-panel-foot a { text-decoration: underline; }
+
 /* Portfolios */
 .portfolio-grid {
   display: grid;
