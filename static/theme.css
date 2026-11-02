@@ -400,23 +400,25 @@ input[type="text"], input[type="email"], input[type="search"] {
   grid-template-columns: 10rem 1fr;
   gap: var(--space-4);
   align-items: center;
-  padding: var(--space-5) 0;
+  padding: 4.125rem 0;     /* rows sit 132px apart, as on Squarespace */
 }
-.footer-row:first-child { border-top: 1px solid var(--rule); padding-top: var(--space-6); }
+.footer-row:first-child { border-top: 1px solid var(--rule); }
 .footer-row p { margin: 0; }
 .footer-heading { font-size: var(--step-1); font-weight: 700; line-height: 1.2; letter-spacing: var(--tracking-tight); color: var(--ink); }
 .footer-lede { font-size: 1.2rem; line-height: 1.6; }
 .footer-bottom {
-  margin-top: var(--space-4);
-  padding-top: var(--space-5);
+  --footer-logo-w: 200px;
+  margin-top: 3px;         /* with the row padding, 69px from the icons to this rule */
+  padding-top: 3.5rem;
   border-top: 1px solid var(--rule);
-  font-size: var(--step--1);
+  font-size: 0.865rem;
+  line-height: 1.5;
 }
-.footer-bottom { --footer-logo-w: 200px; }
 /* Line the text up with the "w", which starts 93px into the 464px-wide logo art */
-.footer-bottom p { margin: var(--space-2) 0 0 calc(var(--footer-logo-w) * 93 / 464); }
+.footer-bottom p { margin: 0 0 0 calc(var(--footer-logo-w) * 93 / 464); }
+.footer-bottom .site-title { display: block; }  /* no inline gap under the logo */
 .footer-bottom .logo { width: var(--footer-logo-w); }
-.site-copyright { font-size: var(--step--2); }
+.footer-bottom .site-copyright { margin-top: 2.25rem; font-size: 0.7rem; }
 
 @media (max-width: 560px) {
   .post-item { padding: var(--space-3); }
