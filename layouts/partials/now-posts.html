@@ -1,3 +1,2 @@
-{{/* Returns every post in the "Now" category, newest first */}}
-{{ $posts := where site.RegularPages "Type" "post" }}
-{{ return (where $posts "Params.categories" "intersect" (slice "Now" "now" "NOW")).ByDate.Reverse }}
+{{/* Returns every untitled post (short note), newest first */}}
+{{ return (where (where site.RegularPages "Type" "post") "Title" "").ByDate.Reverse }}
