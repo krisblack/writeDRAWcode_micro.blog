@@ -412,8 +412,10 @@ input[type="text"], input[type="email"], input[type="search"] {
   border-top: 1px solid var(--rule);
   font-size: var(--step--1);
 }
-.footer-bottom p { margin: var(--space-2) 0 0 0; }
-.footer-bottom .logo { width: 200px; }
+.footer-bottom { --footer-logo-w: 200px; }
+/* Line the text up with the "w", which starts 93px into the 464px-wide logo art */
+.footer-bottom p { margin: var(--space-2) 0 0 calc(var(--footer-logo-w) * 93 / 464); }
+.footer-bottom .logo { width: var(--footer-logo-w); }
 .site-copyright { font-size: var(--step--2); }
 
 @media (max-width: 560px) {
