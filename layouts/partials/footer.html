@@ -1,7 +1,10 @@
 <footer class="site-footer">
   <div class="footer-row">
     <p class="footer-heading">An Indie Publication</p>
-    <p class="footer-lede">{{ partial "description.html" . }}</p>
+    <div class="footer-lede">
+      <p>{{ partial "description.html" . }}</p>
+      <p><a href="{{ "/about/" | relURL }}">About writeDRAWcode_</a></p>
+    </div>
   </div>
   <div class="footer-row">
     <p class="footer-heading">Follow Me</p>

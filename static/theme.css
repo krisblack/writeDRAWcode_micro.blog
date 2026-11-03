@@ -428,7 +428,8 @@ input[type="text"], input[type="email"], input[type="search"] {
 .footer-row:first-child { border-top: 1px solid var(--rule); }
 .footer-row p { margin: 0; }
 .footer-heading { font-size: var(--step-1); font-weight: 700; line-height: 1.2; letter-spacing: var(--tracking-tight); color: var(--ink); }
-.footer-lede { font-size: 1.2rem; line-height: 1.6; }
+.footer-lede p { font-size: 1rem; line-height: 1.2; }
+.footer-lede p + p { margin-top: var(--space-3); }
 .footer-bottom {
   --footer-logo-w: 200px;
   margin-top: 3px;         /* with the row padding, 69px from the icons to this rule */
