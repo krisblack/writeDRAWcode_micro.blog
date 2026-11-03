@@ -4,5 +4,10 @@
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} · {{ end }}{{ .Site.Title }}{{ end }}</title>
 {{ with partial "description.html" . }}<meta name="description" content="{{ . }}">{{ end }}
 <link rel="stylesheet" href="{{ "theme.css" | relURL }}">
+{{ if partial "on-microblog.html" . }}
+{{/* On micro.blog: its feeds, rel="me", IndieAuth, Webmention, Micropub, custom CSS and plugins */}}
+{{ partial "microblog_head.html" . }}
+{{ else }}
 <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "feed.xml" | absURL }}">
 <link rel="alternate" type="application/json" title="{{ .Site.Title }}" href="{{ "feed.json" | absURL }}">
+{{ end }}

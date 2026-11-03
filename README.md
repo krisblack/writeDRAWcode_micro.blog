@@ -13,6 +13,7 @@ layouts/
   _default/single.html  pages; post/single.html  posts (both draw partials/single.html)
   partials/
     head.html  header.html  footer.html
+    on-microblog.html   returns true when building on micro.blog; head.html then adds micro.blog's own head links (Webmention, Micropub, IndieAuth, rel="me", feeds, custom CSS, plugins)
     site-header.html    header markup; takes the nav item to mark as current
     wordmark.html       logo image (header + footer)
     social-icons.html   RSS, Bluesky, Mastodon, Instagram, Contact (header + footer)

@@ -1,0 +1,4 @@
+{{/* Returns true when building on micro.blog, which supplies microblog_head.html.
+     Hugo merges this repo's hugo.toml into a micro.blog site's settings, so
+     self-host-only settings check this before they apply. */}}
+{{ return templates.Exists "partials/microblog_head.html" }}
