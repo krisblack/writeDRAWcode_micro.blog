@@ -149,10 +149,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .button:hover { text-decoration: none; opacity: 0.85; }
 .site-header-top .button { padding: 0.25rem 0.5rem; }
 
+/* Shrink the logo a little so the desktop nav fits down to 561px */
+@media (max-width: 640px) {
+  .site-header .logo { width: 200px; }
+}
+
 /* Mobile menu: a two-line burger that turns into an X and opens a
-   full-screen menu, matching the Squarespace site below 800px */
+   full-screen menu, as on the Squarespace site */
 .menu-toggle, .mobile-menu { display: none; }
-@media (max-width: 799px) {
+@media (max-width: 560px) {
   .site-header-top, .site-nav { display: none; }
   .site-header-row {
     position: relative;
