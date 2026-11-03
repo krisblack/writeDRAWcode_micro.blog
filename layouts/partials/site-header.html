@@ -1,5 +1,4 @@
 {{/* Expects (dict "page" <page> "current" <path of the nav item to mark>) */}}
-{{ $current := .current }}
 <a class="skip-link" href="#content">Skip to content</a>
 <header class="site-header">
   <div class="site-header-top">
@@ -11,12 +10,42 @@
   <div class="site-header-row">
     <a class="site-title" href="{{ "/" | relURL }}">{{ partial "wordmark.html" .page }}</a>
     <nav class="site-nav" aria-label="Main">
-      {{ if .page.Site.Menus.main }}
-        {{ range .page.Site.Menus.main }}<a href="{{ .URL }}"{{ if eq (relURL .URL) $current }} aria-current="page"{{ end }}>{{ .Name }}</a>{{ end }}
-      {{ else }}
-        <a href="{{ "/" | relURL }}"{{ if eq $current ("/" | relURL) }} aria-current="page"{{ end }}>Home</a>
-        <a href="{{ "/archive/" | relURL }}"{{ if eq $current ("/archive/" | relURL) }} aria-current="page"{{ end }}>Archive</a>
-      {{ end }}
+      {{ partial "nav-links.html" . }}
     </nav>
+    <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+    </button>
+  </div>
+  {{/* Full-screen menu for small screens, as on the Squarespace site */}}
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-menu-nav" aria-label="Main">
+      {{ partial "nav-links.html" . }}
+    </nav>
+    <div class="mobile-menu-foot">
+      <a class="button" href="{{ "/subscribe" | relURL }}">Join the Email List</a>
+      <nav class="social-icons social-icons--menu" aria-label="Follow">
+        {{ partial "social-icons.html" .page }}
+      </nav>
+    </div>
   </div>
 </header>
+<script>
+(function () {
+  var toggle = document.querySelector('.menu-toggle');
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.documentElement.classList.toggle('menu-open', open);
+  }
+  toggle.addEventListener('click', function () {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+})();
+</script>

@@ -147,12 +147,91 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   line-height: 1.2;
 }
 .button:hover { text-decoration: none; opacity: 0.85; }
+.site-header-top .button { padding: 0.25rem 0.5rem; }
+
+/* Mobile menu: a two-line burger that turns into an X and opens a
+   full-screen menu, matching the Squarespace site below 800px */
+.menu-toggle, .mobile-menu { display: none; }
+@media (max-width: 799px) {
+  .site-header-top, .site-nav { display: none; }
+  .site-header-row {
+    position: relative;
+    z-index: 11;            /* logo and X stay above the open menu */
+    flex-wrap: nowrap;
+  }
+  .menu-toggle {
+    position: relative;
+    display: block;
+    flex: none;
+    width: 47px;
+    height: 37px;
+    margin-right: -6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .menu-toggle-bar {
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    width: 35px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.25s cubic-bezier(0.2, 0.6, 0.3, 1), width 0.25s cubic-bezier(0.2, 0.6, 0.3, 1);
+  }
+  .menu-toggle-bar:first-child { transform: translateY(-6.5px); }
+  .menu-toggle-bar:last-child { transform: translateY(4.5px); }
+  .menu-open .menu-toggle-bar { width: 30px; left: 8.5px; }
+  .menu-open .menu-toggle-bar:first-child { transform: translateY(-1px) rotate(45deg); }
+  .menu-open .menu-toggle-bar:last-child { transform: translateY(-1px) rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    padding: 6rem var(--space-3) 2.25rem;
+    background: var(--bg);
+    visibility: hidden;
+    opacity: 0;
+    overflow-y: auto;
+    transition: visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .menu-open { overflow: hidden; }
+  .menu-open .mobile-menu { visibility: visible; opacity: 1; }
+  .mobile-menu-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+  .mobile-menu-nav a {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .mobile-menu-nav a:hover { text-decoration: none; opacity: 0.7; }
+  .mobile-menu-foot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+}
 
 /* Social icons */
 .social-icons { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .social-icons a { display: inline-flex; align-items: center; justify-content: center; color: var(--text); }
 .social-icons svg { width: 100%; height: 100%; }
 .social-icons--small a { width: 20px; height: 20px; }
+.social-icons--menu { justify-content: center; gap: 15px; }
+.social-icons--menu a { width: 25px; height: 25px; }
 .social-icons--round { gap: 0.6rem; }
 .social-icons--round a {
   width: 36px;
