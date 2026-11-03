@@ -1,6 +1,6 @@
 <aside class="author-box h-card" aria-label="About the author">
   <div class="author-head">
-    {{ with .Site.Params.avatar }}<img class="author-avatar u-photo" src="{{ . }}" alt="" width="48" height="48">{{ end }}
+    {{ with partial "avatar.html" . }}<img class="author-avatar u-photo" src="{{ . }}" alt="" width="48" height="48">{{ end }}
     <p class="author-name p-name">Kris Black</p>
   </div>
   <p class="p-note"><em><strong>Kris Black</strong></em> is an American visual designer and cartoonist for comics and cartoon art. He creates stories and art to entertain humans of all ages.</p>

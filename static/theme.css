@@ -126,12 +126,117 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   box-shadow: inset 0 -1px 0 currentColor;
 }
 
+.site-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+/* Black button */
+.button {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border-radius: 3px;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.button:hover { text-decoration: none; opacity: 0.85; }
+.site-header-top .button { padding: 0.25rem 0.5rem; }
+
+/* Shrink the logo a little so the desktop nav fits down to 561px */
+@media (max-width: 640px) {
+  .site-header .logo { width: 200px; }
+}
+
+/* Mobile menu: a two-line burger that turns into an X and opens a
+   full-screen menu, as on the Squarespace site */
+.menu-toggle, .mobile-menu { display: none; }
+@media (max-width: 560px) {
+  .site-header-top, .site-nav { display: none; }
+  .site-header-row {
+    position: relative;
+    z-index: 11;            /* logo and X stay above the open menu */
+    flex-wrap: nowrap;
+  }
+  .menu-toggle {
+    position: relative;
+    display: block;
+    flex: none;
+    width: 47px;
+    height: 37px;
+    margin-right: -6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .menu-toggle-bar {
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    width: 35px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.25s cubic-bezier(0.2, 0.6, 0.3, 1), width 0.25s cubic-bezier(0.2, 0.6, 0.3, 1);
+  }
+  .menu-toggle-bar:first-child { transform: translateY(-6.5px); }
+  .menu-toggle-bar:last-child { transform: translateY(4.5px); }
+  .menu-open .menu-toggle-bar { width: 30px; left: 8.5px; }
+  .menu-open .menu-toggle-bar:first-child { transform: translateY(-1px) rotate(45deg); }
+  .menu-open .menu-toggle-bar:last-child { transform: translateY(-1px) rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    padding: 6rem var(--space-3) 2.25rem;
+    background: var(--bg);
+    visibility: hidden;
+    opacity: 0;
+    overflow-y: auto;
+    transition: visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .menu-open { overflow: hidden; }
+  .menu-open .mobile-menu { visibility: visible; opacity: 1; }
+  .mobile-menu-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+  .mobile-menu-nav a {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .mobile-menu-nav a:hover { text-decoration: none; opacity: 0.7; }
+  .mobile-menu-foot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+}
+
 /* Social icons */
 .social-icons { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .social-icons a { display: inline-flex; align-items: center; justify-content: center; color: var(--text); }
 .social-icons svg { width: 100%; height: 100%; }
-.social-icons--small { justify-content: flex-end; margin-bottom: var(--space-1); }
-.social-icons--small a { width: 15px; height: 15px; }
+.social-icons--small a { width: 20px; height: 20px; }
+.social-icons--menu { justify-content: center; gap: 15px; }
+.social-icons--menu a { width: 25px; height: 25px; }
 .social-icons--round { gap: 0.6rem; }
 .social-icons--round a {
   width: 36px;
@@ -171,10 +276,13 @@ h4 { font-size: var(--step-0); line-height: 1.3; }
   font-size: var(--step-3);
   line-height: 1.15;
 }
+/* Stays beside the headline and shrinks with the screen, as on Squarespace:
+   125px wide down to about 640px, then roughly a fifth of the screen width */
 .intro-avatar {
   flex: none;
-  width: 125px;
-  height: 125px;
+  width: min(125px, 19.5vw);
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 50%;
 }
 
@@ -234,7 +342,8 @@ h4 { font-size: var(--step-0); line-height: 1.3; }
 }
 .meta-item { display: inline-flex; align-items: center; gap: 0.35rem; }
 .meta-item + .meta-item::before { content: "·"; margin-right: 0.15rem; color: var(--muted); }
-.meta-icon { width: 12px; height: 12px; color: var(--icon); }
+/* Font Awesome glyphs at the 12.8px size the Squarespace site used */
+.meta-icon { width: auto; height: 0.8rem; flex: none; color: var(--icon); }
 .post-meta a { font-weight: 400; color: inherit; }
 .post-meta .p-category { font-weight: 700; color: var(--ink); }
 
@@ -362,6 +471,7 @@ th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom
 @media (prefers-color-scheme: dark) {
   .portfolio-logo { filter: invert(1); }  /* solid black art, so flip it on dark paper */
 }
+.portfolio { font-size: 1rem; }  /* 16px text and links */
 .portfolio p { margin: 0; line-height: 1.6; }
 .portfolio-label { font-weight: 700; text-transform: uppercase; font-size: 0.95rem; }
 .portfolio-link { display: inline-block; margin-top: var(--space-1); }
@@ -405,7 +515,8 @@ input[type="text"], input[type="email"], input[type="search"] {
 .footer-row:first-child { border-top: 1px solid var(--rule); }
 .footer-row p { margin: 0; }
 .footer-heading { font-size: var(--step-1); font-weight: 700; line-height: 1.2; letter-spacing: var(--tracking-tight); color: var(--ink); }
-.footer-lede { font-size: 1.2rem; line-height: 1.6; }
+.footer-lede p { font-size: 1rem; line-height: 1.2; }
+.footer-lede p + p { margin-top: var(--space-3); }
 .footer-bottom {
   --footer-logo-w: 200px;
   margin-top: 3px;         /* with the row padding, 69px from the icons to this rule */
@@ -424,8 +535,7 @@ input[type="text"], input[type="email"], input[type="search"] {
   .post-item { padding: var(--space-3); }
   :root { --step-2: 1.5rem; --step-3: 1.9rem; }
   .site-main { padding-top: var(--space-5); gap: var(--space-6); }
-  .intro { flex-direction: column-reverse; align-items: flex-start; }
-  .intro-avatar { width: 96px; height: 96px; }
+  .intro { gap: var(--space-3); }
   .post-item.has-thumb { flex-direction: column-reverse; }
   .post-thumb { width: 100%; aspect-ratio: 4 / 3; }
   .footer-row { grid-template-columns: 1fr; gap: var(--space-3); }

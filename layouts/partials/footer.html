@@ -1,7 +1,10 @@
 <footer class="site-footer">
   <div class="footer-row">
     <p class="footer-heading">An Indie Publication</p>
-    <p class="footer-lede">{{ with .Site.Params.description }}{{ . }}{{ else }}I'm documenting my career pivot into illustration and cartooning.{{ end }}</p>
+    <div class="footer-lede">
+      <p>{{ partial "description.html" . }}</p>
+      <p><a href="{{ "/about/" | relURL }}">About writeDRAWcode_</a></p>
+    </div>
   </div>
   <div class="footer-row">
     <p class="footer-heading">Follow Me</p>

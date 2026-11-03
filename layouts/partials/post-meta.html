@@ -1,6 +1,6 @@
 <p class="post-meta">
   <span class="meta-item">
-    <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 1h1.5v2h5V1H12v2h2v11H2V3h2V1Zm-.5 5v6.5h9V6h-9Z"/></svg>
+    <svg class="meta-icon" viewBox="0 0 448 512" aria-hidden="true"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M128 0C110.3 0 96 14.3 96 32l0 32-32 0C28.7 64 0 92.7 0 128l0 48 448 0 0-48c0-35.3-28.7-64-64-64l-32 0 0-32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 32-128 0 0-32c0-17.7-14.3-32-32-32zM0 224L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192-448 0z"/></svg>
     <a class="u-url" href="{{ .Permalink }}"><time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "Monday, January 2, 2006" }}</time></a>
   </span>
   {{/* "Now" marks now posts; it would repeat on every one, so leave it out */}}
@@ -8,7 +8,7 @@
   {{ range .Params.categories }}{{ if ne (lower .) "now" }}{{ $cats = $cats | append . }}{{ end }}{{ end }}
   {{ with $cats }}
   <span class="meta-item">
-    <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M1 3h5l1.5 1.5H15V13H1V3Zm1.5 3v5.5h11V6h-11Z"/></svg>
+    <svg class="meta-icon" viewBox="0 0 576 512" aria-hidden="true"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M48 24C48 10.7 37.3 0 24 0S0 10.7 0 24L0 392c0 30.9 25.1 56 56 56l184 0 0-48-184 0c-4.4 0-8-3.6-8-8l0-232 192 0 0-48-192 0 0-88zM336 224l192 0c26.5 0 48-21.5 48-48l0-96c0-26.5-21.5-48-48-48l-82.7 0c-8.5 0-16.6-3.4-22.6-9.4l-8.6-8.6c-9-9-21.2-14.1-33.9-14.1L336 0c-26.5 0-48 21.5-48 48l0 128c0 26.5 21.5 48 48 48zm0 288l192 0c26.5 0 48-21.5 48-48l0-96c0-26.5-21.5-48-48-48l-82.7 0c-8.5 0-16.6-3.4-22.6-9.4l-8.6-8.6c-9-9-21.2-14.1-33.9-14.1L336 288c-26.5 0-48 21.5-48 48l0 128c0 26.5 21.5 48 48 48z"/></svg>
     {{ range $i, $c := . }}{{ if $i }}, {{ end }}<a class="p-category" href="{{ "categories/" | relURL }}{{ $c | urlize }}/">{{ $c }}</a>{{ end }}
   </span>
   {{ end }}

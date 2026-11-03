@@ -1,0 +1,7 @@
+{{/* Returns the site blurb. micro.blog fills params.description with a
+     "Follow @user on Micro.blog" link, so that one is swapped for the blurb */}}
+{{ $description := site.Params.description }}
+{{ if or (not $description) (in $description "micro.blog") }}
+{{ $description = "I'm documenting my career pivot into illustration and cartooning." }}
+{{ end }}
+{{ return $description }}

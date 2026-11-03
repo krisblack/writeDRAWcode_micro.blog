@@ -22,7 +22,7 @@ layouts/
   index.feed.xml        /feed.xml, posts only (self-hosted only)
   index.jsonfeed.json   /feed.json, posts only (self-hosted only)
   _default/list.html    categories and other lists
-  _default/single.html  post or page (posts add author box + prev/next; /now/ draws the Now page)
+  _default/single.html  pages; post/single.html  posts (both draw partials/single.html)
   partials/
     head.html  header.html  footer.html
     site-header.html    header markup; takes the nav item to mark as current
@@ -32,8 +32,12 @@ layouts/
     post-meta.html      date + categories with icons
     author-box.html     bio shown under posts
     blog-posts.html     returns titled posts, newest first
-    now-posts.html      returns posts in the "Now" category, newest first
+    now-posts.html      returns untitled posts (notes), newest first
     now-page.html       the /now/ page: heading, intro panel, all now posts
+    single.html         post or page (posts add author box + prev/next; /now/ draws the Now page)
+    nav-links.html      main nav links, shared by the desktop nav and the mobile menu
+    avatar.html         returns params.avatar, or micro.blog's author.avatar
+    description.html    returns the site blurb (replaces micro.blog's default)
     pagination.html
 static/
   theme.css             all styling, driven by CSS custom properties
@@ -47,10 +51,11 @@ Everything lives in `:root` at the top of `static/theme.css`. Dark values are in
 
 - Posts have `type` "post" (anything under `content/post/`). Everything else, like About, Colophon and Now, is a page: no date, author box or prev/next.
 - Untitled posts render as notes: body plus date, no heading. Keep them under 300 characters, as micro.blog does.
-- Now posts are untitled notes in the "Now" category. The latest shows in "What I'm Doing Now" on the home page, and all of them on /now/. The "Now" tag itself is hidden in post meta.
+- Now posts are untitled notes (no category needed). The latest shows in "What I'm Doing Now" on the home page, and all of them on /now/. The "Now" tag itself is hidden in post meta.
 - The home page and Blog page list titled posts only.
 - List thumbnails come from the first image in each post.
-- The Now page's body, if any, replaces the default "Short, Quick Daily Notes" panel text.
+- The Now page's body, if any, replaces the default "Short, Quick Daily Notes" panel text. On micro.blog, create a page titled "Now" at /now/.
+- The avatar comes from `params.avatar`, or micro.blog's `params.author.avatar`; if both are empty, the avatar is left out.
 - Social links and the author bio are written into `social-icons.html` and `author-box.html`.
 
 ## Writing a post (self-hosted)
@@ -66,7 +71,7 @@ categories: ["Productivity"]
 Post body.
 ```
 
-Leave out `title` for a note, and use `categories: ["Now"]` for a Now post. The URL becomes `/YYYY/MM/DD/<file name>/`.
+Leave out `title` for a note; notes show up as Now posts. The URL becomes `/YYYY/MM/DD/<file name>/`.
 
 ## Local preview
 
