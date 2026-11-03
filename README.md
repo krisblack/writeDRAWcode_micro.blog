@@ -4,13 +4,13 @@ Recreates the writedrawcode.com design: device font, warm gray paper (#E7E4E4), 
 
 This repo works two ways:
 
-- **As a micro.blog theme.** micro.blog reads `layouts/`, `static/` and `theme.json` and ignores everything else.
+- **As a micro.blog theme.** micro.blog uses `layouts/`, `static/` and `theme.json`. Hugo also merges the params and menus in `hugo.toml` into a site that uses this as a theme, so self-host-only settings (webmention.io, "Created with Hugo") check `on-microblog.html` and switch off on micro.blog.
 - **As a self-hosted Hugo site on Netlify.** `hugo.toml`, `content/` and `netlify.toml` turn the same templates into a complete site.
 
 ## Structure
 
 ```
-hugo.toml               site config for self-hosting (micro.blog ignores it)
+hugo.toml               site config for self-hosting (self-host-only settings switch off on micro.blog)
 netlify.toml            Netlify build settings
 theme.json              micro.blog theme info
 content/
@@ -36,7 +36,10 @@ layouts/
     now-page.html       the /now/ page: heading, intro panel, all now posts
     single.html         post or page (posts add author box + prev/next; /now/ draws the Now page)
     nav-links.html      main nav links, shared by the desktop nav and the mobile menu
-    avatar.html         returns params.avatar, or micro.blog's author.avatar
+    avatar.html         returns micro.blog's author.avatar, or params.avatar
+    on-microblog.html   returns true when building on micro.blog
+    webmentions.html    likes, reposts and replies from webmention.io (self-hosted only)
+    webmention-author.html  one responder's face and link
     description.html    returns the site blurb (replaces micro.blog's default)
     pagination.html
 static/
@@ -87,6 +90,21 @@ Then open http://localhost:1313. The sample posts in `content/post/` are marked 
 2. Netlify reads `netlify.toml`, so the build command (`hugo --gc --minify`), publish folder (`public`) and Hugo version are already set.
 3. Every push to the production branch redeploys. Pull requests and other branches get preview URLs.
 4. When you're ready to switch, add `www.writedrawcode.com` under **Domain management**, then point the domain's DNS (at Cloudflare) at Netlify.
+
+## Webmentions (self-hosted)
+
+On micro.blog, micro.blog receives webmentions and shows replies itself; `head.html` passes through micro.blog's own head links (Webmention, Micropub, IndieAuth, feeds). Self-hosted, the site uses two free services:
+
+- **Receiving: [webmention.io](https://webmention.io).** Every page links to its endpoint (`params.webmention.endpoint`). Builds read its API (`params.webmention.api`) and show likes, reposts and replies under each post. Replies are shown as plain text, never as HTML from other sites. If the API can't be reached, the build warns and carries on.
+- **Sending: [webmention.app](https://webmention.app).** After each deploy, it reads the feed and notifies every site the newest post links to.
+
+Setup, once the site is live at www.writedrawcode.com:
+
+1. Sign in at webmention.io with `www.writedrawcode.com`. It signs you in through a `rel="me"` link on the home page to an account such as GitHub, which must link back to the site.
+2. In Netlify, under **Build & deploy → Build hooks**, create a hook and copy its URL. In webmention.io's settings, add that URL as the web hook, so each new webmention rebuilds the site and appears.
+3. Claim a token at webmention.app/token. In Netlify, under **Build & deploy → Deploy notifications**, add an **Outgoing webhook** for **Deploy succeeded** with the URL `https://webmention.app/check?token=YOUR_TOKEN&limit=1&url=https://www.writedrawcode.com/feed.xml`.
+
+Local previews fetch webmentions at most every 10 minutes (`[caches.getresource]`). Previews on `localhost` never fetch: Hugo blocks any request whose URL mentions localhost.
 
 ## Still to move off other services
 

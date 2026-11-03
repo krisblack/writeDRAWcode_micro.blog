@@ -14,7 +14,8 @@
   </div>
   <div class="footer-bottom">
     <a class="site-title" href="{{ "/" | relURL }}">{{ partial "wordmark.html" . }}</a>
-    {{ $by := site.Params.poweredby | default (dict "name" "Micro.blog" "url" "https://micro.blog") }}
+    {{ $by := dict "name" "Micro.blog" "url" "https://micro.blog" }}
+    {{ if not (partial "on-microblog.html" .) }}{{ with site.Params.poweredby }}{{ $by = . }}{{ end }}{{ end }}
     <p>Created with <a href="{{ $by.url }}">{{ $by.name }}</a></p>
     <p class="site-copyright">© {{ now.Year }} <strong>Kris Black Studio, LLC</strong>. All rights reserved.</p>
   </div>

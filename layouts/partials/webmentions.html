@@ -1,0 +1,50 @@
+{{/* Webmentions received for this page, fetched from webmention.io when the
+     site builds. Self-hosted only: micro.blog shows its own replies. */}}
+{{ if not (partial "on-microblog.html" .) }}
+{{ with site.Params.webmention.api }}
+{{ $url := printf "%s?target=%s&per-page=200&sort-dir=up" . ($.Permalink | urlquery) }}
+{{ with try (resources.GetRemote $url) }}
+{{ with .Err }}
+  {{ warnf "Webmentions for %s: %s" $.RelPermalink . }}
+{{ else with .Value }}
+{{ $mentions := (.Content | transform.Unmarshal).children | default slice }}
+{{ $likes := where $mentions "wm-property" "like-of" }}
+{{ $reposts := where $mentions "wm-property" "repost-of" }}
+{{ $replies := where $mentions "wm-property" "in" (slice "in-reply-to" "mention-of") }}
+{{ if $mentions }}
+<section class="webmentions" aria-labelledby="webmentions-title">
+  <h2 id="webmentions-title" class="webmentions-title">Responses</h2>
+  {{ with $likes }}
+  <p class="webmentions-label">{{ len . }} {{ cond (eq (len .) 1) "like" "likes" }}</p>
+  <ul class="facepile">
+    {{ range . }}<li class="h-cite p-like">{{ partial "webmention-author.html" (.author | default dict) }}</li>{{ end }}
+  </ul>
+  {{ end }}
+  {{ with $reposts }}
+  <p class="webmentions-label">{{ len . }} {{ cond (eq (len .) 1) "repost" "reposts" }}</p>
+  <ul class="facepile">
+    {{ range . }}<li class="h-cite p-repost">{{ partial "webmention-author.html" (.author | default dict) }}</li>{{ end }}
+  </ul>
+  {{ end }}
+  {{ with $replies }}
+  <ol class="webmention-replies">
+    {{ range . }}
+    <li class="h-cite p-comment">
+      <p class="webmention-meta">
+        {{ partial "webmention-author.html" (.author | default dict) }}
+        {{ $author := .author | default dict }}
+        {{ with $author.url }}<a class="webmention-name" href="{{ . }}">{{ $author.name | default "Someone" }}</a>{{ else }}<span class="webmention-name">{{ $author.name | default "Someone" }}</span>{{ end }}
+        <a class="u-url" href="{{ .url }}"><time class="dt-published" datetime="{{ .published | default (index . "wm-received") }}">{{ (.published | default (index . "wm-received")) | time.Format "January 2, 2006" }}</time></a>
+      </p>
+      {{/* Plain text only: never trust HTML from other sites */}}
+      {{ with .content.text }}<p class="p-content">{{ . | truncate 600 }}</p>{{ else }}<p class="p-content">Mentioned this post.</p>{{ end }}
+    </li>
+    {{ end }}
+  </ol>
+  {{ end }}
+</section>
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

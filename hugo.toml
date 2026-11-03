@@ -1,5 +1,5 @@
-# Site config for self-hosting (Netlify). micro.blog ignores this file and
-# uses its own config, so the repo still works as a micro.blog theme.
+# Site config for self-hosting (Netlify). Hugo also merges these params and
+# menus into a micro.blog site using this theme; see on-microblog.html.
 
 baseURL = "https://www.writedrawcode.com/"
 locale = "en-us"
@@ -11,9 +11,19 @@ description = "I'm documenting my career pivot into illustration and cartooning.
 # Still served from Squarespace; move it before that account closes
 avatar = "https://images.squarespace-cdn.com/content/v1/50ed6113e4b0829d0c4f2245/262fc049-b55f-424e-a9d9-24e125faad29/avatar-kris-black-2024.png?format=300w"
 
+# Webmentions are received by webmention.io (see README). The endpoint is
+# advertised in each page's head; the API is read at build time to show responses.
+[params.webmention]
+endpoint = "https://webmention.io/www.writedrawcode.com/webmention"
+api = "https://webmention.io/api/mentions.jf2"
+
 [params.poweredby]
 name = "Hugo"
 url = "https://gohugo.io"
+
+# Re-fetch webmentions at most every 10 minutes during local previews
+[caches.getresource]
+maxAge = "10m"
 
 [pagination]
 pagerSize = 10

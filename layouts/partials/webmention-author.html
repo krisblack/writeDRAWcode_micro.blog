@@ -1,0 +1,6 @@
+{{/* Expects a webmention's author: name, url, photo (any may be missing) */}}
+{{ $name := .name | default "Someone" }}
+{{ $face := cond (ne .photo nil) .photo "" }}
+{{ if .url }}<a class="u-author h-card webmention-face" href="{{ .url }}" title="{{ $name }}">{{ else }}<span class="u-author h-card webmention-face" title="{{ $name }}">{{ end }}
+  {{ with $face }}<img class="u-photo" src="{{ . }}" alt="{{ $name }}" width="32" height="32" loading="lazy">{{ else }}<span aria-hidden="true">{{ substr $name 0 1 }}</span><span class="p-name visually-hidden">{{ $name }}</span>{{ end }}
+{{ if .url }}</a>{{ else }}</span>{{ end }}

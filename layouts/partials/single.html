@@ -18,6 +18,7 @@
   </article>
 
   {{ if $isPost }}
+  {{ partial "webmentions.html" . }}
   {{ partial "author-box.html" . }}
   {{/* Step through all posts site-wide, not just the current section */}}
   {{ $posts := where site.RegularPages "Type" "post" }}

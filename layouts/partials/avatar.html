@@ -1,4 +1,5 @@
-{{/* Returns the avatar URL: params.avatar when set (self-hosted), else micro.blog's author.avatar */}}
-{{ $avatar := site.Params.avatar }}
-{{ with site.Params.author }}{{ $avatar = $avatar | default .avatar }}{{ end }}
+{{/* Returns the avatar URL: micro.blog's author.avatar when set, else params.avatar (self-hosted) */}}
+{{ $avatar := "" }}
+{{ with site.Params.author }}{{ $avatar = .avatar }}{{ end }}
+{{ $avatar = $avatar | default site.Params.avatar }}
 {{ return $avatar }}
