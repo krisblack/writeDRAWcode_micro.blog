@@ -276,10 +276,13 @@ h4 { font-size: var(--step-0); line-height: 1.3; }
   font-size: var(--step-3);
   line-height: 1.15;
 }
+/* Stays beside the headline and shrinks with the screen, as on Squarespace:
+   125px wide down to about 640px, then roughly a fifth of the screen width */
 .intro-avatar {
   flex: none;
-  width: 125px;
-  height: 125px;
+  width: min(125px, 19.5vw);
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 50%;
 }
 
@@ -532,8 +535,7 @@ input[type="text"], input[type="email"], input[type="search"] {
   .post-item { padding: var(--space-3); }
   :root { --step-2: 1.5rem; --step-3: 1.9rem; }
   .site-main { padding-top: var(--space-5); gap: var(--space-6); }
-  .intro { flex-direction: column-reverse; align-items: flex-start; }
-  .intro-avatar { width: 96px; height: 96px; }
+  .intro { gap: var(--space-3); }
   .post-item.has-thumb { flex-direction: column-reverse; }
   .post-thumb { width: 100%; aspect-ratio: 4 / 3; }
   .footer-row { grid-template-columns: 1fr; gap: var(--space-3); }
